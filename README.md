@@ -1,6 +1,4 @@
-## 📘 README.md — HireX: Smart AI Hiring Assistant
-
-# 👩‍💼 HireX: Smart AI Hiring Assistant
+## 👩‍💼 HireX: Smart AI Hiring Assistant
 
 HireX is an interactive Streamlit app powered by LLMs that helps generate **coding-based interview questions** tailored to a user's experience and tech stack — with solutions, thinking exercises, and more.
 
