@@ -1,88 +1,101 @@
-# HireX-
-HireX is an AI-powered hiring assistant app built with Python and Streamlit. It creates customized technical interview questions and solutions based on your skills, helping users prepare for and evaluate interviews quickly and easily. 
+### 📘 `README.md` — HireX: AI-Powered Hiring Assistant
 
-# HireX: Smart AI Hiring Assistant
+---
 
-**HireX** is an AI-powered hiring assistant web app built using Python, Streamlit, and LLM APIs. It generates customized technical interview questions and solutions based on user input, helping candidates prepare and recruiters assess skills.
+## 💼 Project Name: **HireX – Smart AI Hiring Assistant**
 
-## Features
+**HireX** is an AI-powered Streamlit application designed to generate personalized technical interview questions (with or without answers) based on the candidate's experience and tech stack. It uses **Groq's LLaMA3 model** via API for LLM responses.
 
-- 🔑 Secure API key management using `.env` file  
-- ✏️ User registration and information form  
-- ✨ Automatic generation of technical and coding interview questions  
-- 📝 Solutions and explanations to coding questions  
-- 💡 Additional thinking/interview questions on demand  
-- 🌐 Easy-to-use Streamlit web UI  
-- 🚀 Quick sharing with ngrok public URL
+---
 
-## Quick Start
+## 🚀 Features
 
-### 1. Install Requirements
+* 🔍 Generates **10 technical interview questions** based on tech stack + experience.
+* 🧠 Offers **detailed, educational solutions** to help candidates learn.
+* 💭 Option to generate **thinking-based open-ended questions**.
+* 🧾 Form requires all candidate details to proceed (validation included).
+* 🎯 Streamlit-based UI with interactive steps.
+
+---
+
+## 🛠️ Tech Stack
+
+* `Streamlit` – UI framework
+* `Groq API` – Large Language Model (LLaMA3)
+* `pyngrok` – To expose local Streamlit app on Colab
+* `dotenv` – To manage environment variables
+
+---
+
+## 📁 File Structure
 
 ```bash
-pip install streamlit pyngrok requests python-dotenv
+.
+├── app.py              # Main Streamlit app logic
+├── prompts.py          # Prompt engineering for LLM
+├── .env                # Contains API key securely
+└── README.md           # You're here!
 ```
 
-### 2. Set Environment Variables
+---
 
-Set your **Groq API key** and (optionally) ngrok auth token in the code:
+## ✅ Setup Instructions (Colab)
+
+1. **Install dependencies:**
+
 ```python
-api_key = "YOUR_GROQ_API_KEY"
-ngrok.set_auth_token("YOUR_NGROK_AUTH_TOKEN")
-```
-- By default, these are automatically set in `.env` by the script.
-
-### 3. Run the App
-
-Run the Python script—on Colab or locally:
-
-```bash
-python pgagi_project-2.py
+!pip install -q streamlit pyngrok requests python-dotenv
 ```
 
-This script:
-- Generates prompt and app code files.
-- Installs dependencies.
-- Starts Streamlit as a background process.
-- Launches a public URL via ngrok.
+2. **Add your Groq API key**:
 
-The URL will output as:
-```
-✅ Your chatbot is live at: https://xxxx.ngrok.io
-```
-
-## How It Works
-
-1. **Landing Page:** Introduction and “Start” button.
-2. **Information Form:** User enters their details (name, contact, experience, tech stack, etc.).
-3. **Question Generation:** 
-    - 5 technical questions generated for user's stack & experience.
-    - Optionally, view solutions and extra “thinking” questions.
-4. **Close:** End conversation, show thank-you message.
-
-**All logic is handled via the `app.py` file and prompt templates in `prompts.py`, auto-created by the script.**
-
-## File Structure
-
-```
-- pgagi_project-2.py      # Main setup & runner script
-- app.py                  # Streamlit app (auto-generated)
-- prompts.py              # Prompt templates (auto-generated)
-- .env                    # Stores API secret (auto-generated)
+```python
+import os
+api_key = "your_groq_api_key_here"
+os.environ["APII"] = api_key
+with open(".env", "w") as f:
+    f.write(f"APII={api_key}")
 ```
 
-## Notes
+3. **Run the app and expose via ngrok:**
 
-- **API Keys:** Never share sensitive API keys. Use environment variables or `.env` file for production.
-- The Streamlit app uses the Groq LLM API with the `llama3-8b-8192` model.
-- Ngrok is used to make your local app accessible on the web.
+```python
+from pyngrok import ngrok
+!pkill ngrok
+!streamlit run app.py &>/content/log.txt &
+public_url = ngrok.connect(8501)
+print("✅ Your app is live at:", public_url)
+```
 
-## License
+---
 
-For educational/demo use. Replace with your own license as needed.
+## 💡 How to Use
 
-#### Enjoy using **HireX** to revolutionize technical interviews!
+1. Fill out all **7 required fields** in the form.
+2. View **10 personalized questions**.
+3. Click `Show Practical Solutions` to see **detailed answers**.
+4. Optionally click `Show Thinking Questions` for more advanced ones.
+5. End conversation once done.
 
-Let me know if you want a Markdown code version suitable for direct copy-paste!
+---
 
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/87200246/d649a7af-ec04-4ea8-bb4c-f49f614cde8a/pgagi_project-2.py
+## 🔐 API Notes
+
+* You **must** save the Groq API Key in `.env` as `APII`.
+* Example:
+
+```
+APII=gsk_your_actual_groq_key
+```
+
+---
+
+## 👨‍💻 Maintainer
+
+Built by **Punit Jain**
+**Project**: B.Tech Final Year - GenAI Hackathon
+**Use Case**: AI for Interview Assistant (LLaMA3 on Groq)
+
+---
+
+Let me know if you'd like a downloadable version of this `README.md`.
