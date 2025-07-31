@@ -8,7 +8,7 @@ HireX is an interactive Streamlit app powered by LLMs that helps generate **codi
 
 ## 🚀 Features
 
-- ✅ 7 coding interview questions generated from user input
+- ✅ 5 coding interview questions generated from user input
 - 🔍 Option to reveal **detailed solutions**
 - 💡 Option to attempt 5 **thinking-only questions** (no answers)
 - 🎨 Light/Dark theme toggle for better UX
@@ -104,3 +104,7 @@ HireX/
 Pull requests are welcome. Open an issue for feature ideas or bugs.
 
 ---
+
+## Google Colab
+
+https://colab.research.google.com/drive/12_S3D5CH6cBSphN746thNs5yPzK2dkq8?usp=sharing
