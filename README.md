@@ -95,14 +95,6 @@ HireX/
 
 ---
 
-## 🎨 Screenshots
-
-| 📋 Interview Questions                                     | 💬 Solutions View                                        | 🧠 Thinking Questions                                      |
-| ---------------------------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------- |
-| ![Q](https://via.placeholder.com/300x200?text=7+Questions) | ![A](https://via.placeholder.com/300x200?text=Solutions) | ![T](https://via.placeholder.com/300x200?text=Thinking+Qs) |
-
----
-
 ## ✨ Future Improvements
 
 * Resume parsing to auto-fill form
