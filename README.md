@@ -104,14 +104,3 @@ HireX/
 Pull requests are welcome. Open an issue for feature ideas or bugs.
 
 ---
-
-## 📜 License
-
-MIT License. © 2025 HireX Team
-
-```
-
----
-
-Would you like me to save this README as a `README.md` file and download it for you?
-```
