@@ -1,103 +1,72 @@
-with open("app.py", "w") as f:
-    f.write("import streamlit as st\n")
-    f.write("import os\n")
-    f.write("import requests\n")
-    f.write("from dotenv import load_dotenv\n")
-    f.write("from prompts import get_intro_prompt, get_info_prompt, generate_question_prompt\n\n")
+with open("prompts.py", "w") as f:
+  f.write('''def get_intro_prompt():
+    return """👋 Welcome to **HireX** – your smart AI Hiring Assistant!
+We're here to generate technical interview questions tailored to your skills and experience.
+Let’s get started with a few quick details."""
 
-    f.write("load_dotenv()\n")
-    f.write("st.set_page_config(page_title='HireX - Your AI Hiring Assistant', layout='centered')\n")
-    f.write("st.title('👩‍💼 HireX: Smart Hiring Assistant')\n\n")
+ef get_intro_prompt():
+    return """👋 Welcome to **HireX** – your smart AI Hiring Assistant!
+We're here to generate technical interview questions tailored to your skills and experience.
+Let’s get started with a few quick details."""
 
-    f.write("GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'\n\n")
+def get_info_prompt():
+    return """
+Please fill out the following details to help us customize your interview questions:
+1. Full Name
+2. Email
+3. Phone Number
+4. Years of Experience
+5. Desired Position(s)
+6. Current Location
+7. Your Tech Stack (comma-separated)
+"""
 
-    f.write("def query_llm(prompt):\n")
-    f.write("    api_key = os.getenv('APII')\n")
-    f.write("    if not api_key:\n")
-    f.write("        st.error('❌ API Key not found. Set it as APII in .env')\n")
-    f.write("        return ''\n")
-    f.write("    headers = {\n")
-    f.write("        'Authorization': f'Bearer {api_key}',\n")
-    f.write("        'Content-Type': 'application/json'\n")
-    f.write("    }\n")
-    f.write("    payload = {\n")
-    f.write("        'model': 'llama3-8b-8192',\n")
-    f.write("        'messages': [{'role': 'user', 'content': prompt}],\n")
-    f.write("        'temperature': 0.7\n")
-    f.write("    }\n")
-    f.write("    res = requests.post(GROQ_API_URL, headers=headers, json=payload)\n")
-    f.write("    try:\n")
-    f.write("        return res.json()['choices'][0]['message']['content']\n")
-    f.write("    except:\n")
-    f.write("        st.error(f'❌ API Error: {res.json()}')\n")
-    f.write("        return ''\n\n")
+def generate_question_only_prompt(tech_stack, experience):
+    return f"""
+Generate 5 **technical coding interview questions only** (no answers) for someone with {experience} years of experience in the following tech stack:
 
-    f.write("if 'step' not in st.session_state: st.session_state.step = 0\n")
-    f.write("if 'info' not in st.session_state: st.session_state.info = {}\n")
-    f.write("if 'questions' not in st.session_state: st.session_state.questions = ''\n")
-    f.write("if 'solutions' not in st.session_state: st.session_state.solutions = ''\n")
-    f.write("if 'thinking_questions' not in st.session_state: st.session_state.thinking_questions = ''\n")
-    f.write("if 'show_solutions' not in st.session_state: st.session_state.show_solutions = False\n")
-    f.write("if 'show_thinking' not in st.session_state: st.session_state.show_thinking = False\n\n")
+{tech_stack}
 
-    f.write("if st.session_state.step == 0:\n")
-    f.write("    st.write(get_intro_prompt())\n")
-    f.write("    if st.button('Start'):\n")
-    f.write("        st.session_state.step = 1\n\n")
+The questions should test coding ability — logic, implementation, algorithms, or systems — using the mentioned technologies.
 
-    f.write("elif st.session_state.step == 1:\n")
-    f.write("    st.write(get_info_prompt())\n")
-    f.write("    with st.form('info_form'):\n")
-    f.write("        name = st.text_input('Full Name')\n")
-    f.write("        email = st.text_input('Email')\n")
-    f.write("        phone = st.text_input('Phone Number')\n")
-    f.write("        experience = st.text_input('Years of Experience')\n")
-    f.write("        position = st.text_input('Desired Position(s)')\n")
-    f.write("        location = st.text_input('Current Location')\n")
-    f.write("        tech_stack = st.text_area('Your Tech Stack (comma-separated)')\n")
-    f.write("        submitted = st.form_submit_button('Submit')\n")
-    f.write("    if submitted:\n")
-    f.write("        if all([name, email, phone, experience, position, location, tech_stack]):\n")
-    f.write("            st.session_state.info = {\n")
-    f.write("                'name': name,\n")
-    f.write("                'email': email,\n")
-    f.write("                'phone': phone,\n")
-    f.write("                'experience': experience,\n")
-    f.write("                'position': position,\n")
-    f.write("                'location': location,\n")
-    f.write("                'tech_stack': tech_stack\n")
-    f.write("            }\n")
-    f.write("            st.session_state.step = 2\n")
-    f.write("        else:\n")
-    f.write("            st.warning('⚠️ Please fill in all 7 required fields.')\n\n")
+Respond only in this format:
+1. **Question:** ...
+2. **Question:** ...
+3. **Question:** ...
+4. **Question:** ...
+5. **Question:** ...
+"""
 
-    f.write("elif st.session_state.step == 2:\n")
-    f.write("    info = st.session_state.info\n")
-    f.write("    if not st.session_state.questions:\n")
-    f.write("        q_prompt = generate_question_prompt(info['tech_stack'], info['experience'], answer_flag=False)\n")
-    f.write("        st.session_state.questions = query_llm(q_prompt)\n")
-    f.write("    st.subheader('📝 5 Technical Interview Questions:')\n")
-    f.write("    st.write(st.session_state.questions)\n")
-    f.write("    st.subheader('⚙️ What would you like to do next?')\n")
-    f.write("    col1, col2 = st.columns(2)\n")
-    f.write("    with col1:\n")
-    f.write("        if st.button('🔍 Show Solutions'):\n")
-    f.write("            sol_prompt = generate_question_prompt(info['tech_stack'], info['experience'], answer_flag=True)\n")
-    f.write("            st.session_state.solutions = query_llm(sol_prompt)\n")
-    f.write("            st.session_state.show_solutions = True\n")
-    f.write("    with col2:\n")
-    f.write("        if st.button('💡 Try Thinking Questions'):\n")
-    f.write("            thinking_prompt = generate_question_prompt(info['tech_stack'], info['experience'], answer_flag=False)\n")
-    f.write("            st.session_state.thinking_questions = query_llm(thinking_prompt)\n")
-    f.write("            st.session_state.show_thinking = True\n")
-    f.write("    if st.session_state.show_solutions:\n")
-    f.write("        st.subheader('✅ Solutions to the 7 Questions:')\n")
-    f.write("        st.write(st.session_state.solutions)\n")
-    f.write("    if st.session_state.show_thinking:\n")
-    f.write("        st.subheader('💭 Additional 5 Thinking Questions:')\n")
-    f.write("        st.write(st.session_state.thinking_questions)\n")
-    f.write("    if st.button('✅ End Conversation'):\n")
-    f.write("        st.session_state.step = 3\n\n")
+def generate_solution_only_prompt(tech_stack, experience, questions):
+    return f"""
+You are an AI coding interview assistant.
 
-    f.write("elif st.session_state.step == 3:\n")
-    f.write("    st.success('🎉 Thank you for using **HireX**! We’ll get in touch with you soon.')\n")
+Generate answers to the following 5 coding interview questions for someone with {experience} years of experience in:
+
+Tech Stack: {tech_stack}
+
+Each answer must include:
+- ✅ Complete, executable code in the tech stack mentioned
+- ✅ Brief explanation of what the code does and why
+
+Questions:
+{questions}
+
+Format:
+1. **Answer:**
+```{tech_stack.lower()}
+# your code here
+
+Respond in this format:
+1. **Answer:** ...
+2. **Answer:** ...
+3. **Answer:** ...
+4. **Answer:** ...
+5. **Answer:** ...
+"""
+
+def generate_thinking_prompt(tech_stack, experience):
+    return f"""
+Generate 5 advanced or creative "thinking" (open-ended, discussion) interview questions for someone with {experience} years of experience in {tech_stack}.
+Number and return questions only, without answers.
+"""''')
