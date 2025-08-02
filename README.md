@@ -94,6 +94,4 @@ print("Your app is live at:", public_url)
 
 Want to run HireX directly in your browser?
 
-
-Let me know if you'd like the README auto-saved as a file or zipped along with the other app files.
-```
+https://colab.research.google.com/drive/12_S3D5CH6cBSphN746thNs5yPzK2dkq8?usp=sharing
