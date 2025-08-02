@@ -1,108 +1,99 @@
-## 👩‍💼 HireX: Smart AI Hiring Assistant
+# 👩‍💼 HireX: Smart Hiring Assistant
 
-HireX is an interactive Streamlit app powered by LLMs that helps generate **coding-based interview questions** tailored to a user's experience and tech stack — with solutions, thinking exercises, and more.
-
----
-
-## 🚀 Features
-
-- ✅ 5 coding interview questions generated from user input
-- 🔍 Option to reveal **detailed solutions**
-- 💡 Option to attempt 5 **thinking-only questions** (no answers)
-- 🎨 Light/Dark theme toggle for better UX
-- 📥 Easy form to input candidate details
-- 🌐 Deployed using Streamlit + ngrok (for Colab users)
+HireX is an AI-powered Streamlit app that generates tailored technical interview questions based on a candidate’s tech stack and experience. It's perfect for recruiters, hiring managers, or developers preparing for interviews.
 
 ---
 
-## 🖥️ How It Works
+## 🔧 Features
 
-1. User fills in a short form (name, experience, tech stack, etc.)
-2. App generates **7 fundamental/intermediate coding questions**
-3. Then user chooses to:
-   - 🔍 View answers with explanations
-   - 💡 Practice 5 fresh thinking questions
-4. ✅ End the conversation gracefully
+- Collects candidate details via a simple form
+- Generates 5 technical coding questions
+- Provides detailed solutions with code and explanations
+- Adds 5 "thinking" (open-ended) questions for deeper evaluation
+- Fully automated using the Groq API and LLaMA 3
 
 ---
 
-## 🧑‍💻 Getting Started
+## 🚀 Installation
 
-### ✅ Prerequisites
-
-Install dependencies:
+1. **Clone the repo**
 
 ```bash
-pip install streamlit requests python-dotenv pyngrok
+git clone https://github.com/your-username/hirex-ai.git
+cd hirex-ai
 ````
 
-Set your [Groq API key](https://console.groq.com/) in a `.env` file:
+2. **Install dependencies**
 
+```bash
+pip install -r requirements.txt
 ```
-APII=your_actual_groq_api_key_here
+
+3. **Setup environment variables**
+
+Rename `.env.template` to `.env` and add your Groq API key:
+
+```env
+APII=your_groq_api_key_here
 ```
 
 ---
 
-### ▶️ Run Locally
+## 🧠 Usage
+
+To run the app locally:
 
 ```bash
 streamlit run app.py
 ```
 
----
+Once started, open the app in your browser at `http://localhost:8501`
 
-### 📦 Run on Google Colab
-
-1. Upload the files: `app.py`, `prompts.py`, and `.env`
-2. Add this in a Colab cell:
+To expose it publicly using ngrok (optional, for testing):
 
 ```python
-!pip install -q streamlit pyngrok python-dotenv requests
 from pyngrok import ngrok
-
-!pkill ngrok  # Kill any existing tunnels
-!streamlit run app.py &>/content/log.txt &
-
 public_url = ngrok.connect(8501)
-print(\"Your app is live at:\", public_url)
+print("Your app is live at:", public_url)
 ```
 
 ---
 
-## 🧠 Example LLM Prompt Used
-
-> Generate 7 coding interview questions that assess fundamental and intermediate programming concepts, ensuring each question focuses on practical problem-solving using core data structures and algorithms.
-
----
-
-## 📁 Project Structure
+## 🗂 Project Structure
 
 ```
-HireX/
-├── app.py            # Main Streamlit app logic
-├── prompts.py        # Prompt logic for question generation
-├── .env              # API key (not committed to repo)
-├── README.md         # You're here!
+.
+├── app.py
+├── prompts.py
+├── requirements.txt
+├── Procfile
+├── .env.template
+└── README.md
 ```
 
 ---
 
-## ✨ Future Improvements
+## 🔒 Environment Variables
 
-* Resume parsing to auto-fill form
-* Export questions to PDF
-* Email the report to candidate
-* Admin dashboard for recruiters
-
----
-
-## 🤝 Contributing
-
-Pull requests are welcome. Open an issue for feature ideas or bugs.
+| Key  | Description       |
+| ---- | ----------------- |
+| APII | Your Groq API key |
 
 ---
 
-## Google Colab
+## 👨‍💻 Built With
 
-https://colab.research.google.com/drive/12_S3D5CH6cBSphN746thNs5yPzK2dkq8?usp=sharing
+* [Streamlit](https://streamlit.io/)
+* [Groq API](https://console.groq.com/)
+* [LLaMA 3](https://llama.meta.com/)
+* [Python](https://www.python.org/)
+
+---
+
+## ▶️ Try it in Google Colab
+
+Want to run HireX directly in your browser?
+
+
+Let me know if you'd like the README auto-saved as a file or zipped along with the other app files.
+```
