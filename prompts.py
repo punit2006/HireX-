@@ -1,34 +1,72 @@
 with open("prompts.py", "w") as f:
-    f.write("def get_intro_prompt():\n")
-    f.write("    return \"\"\"👋 Welcome to **HireX** – your smart AI Hiring Assistant!\n")
-    f.write("We're here to generate technical questions tailored to your skills and experience.\n")
-    f.write("Let’s get started with a few quick details.\"\"\"\n\n")
+  f.write('''def get_intro_prompt():
+    return """👋 Welcome to **HireX** – your smart AI Hiring Assistant!
+We're here to generate technical interview questions tailored to your skills and experience.
+Let’s get started with a few quick details."""
 
-    f.write("def get_info_prompt():\n")
-    f.write("    return \"\"\"\n")
-    f.write("Please fill out the following details to help us customize your interview questions:\n")
-    f.write("1. Full Name\n")
-    f.write("2. Email\n")
-    f.write("3. Phone Number\n")
-    f.write("4. Years of Experience\n")
-    f.write("5. Desired Position(s)\n")
-    f.write("6. Current Location\n")
-    f.write("7. Your Tech Stack (comma-separated)\n")
-    f.write("\"\"\"\n\n")
+ef get_intro_prompt():
+    return """👋 Welcome to **HireX** – your smart AI Hiring Assistant!
+We're here to generate technical interview questions tailored to your skills and experience.
+Let’s get started with a few quick details."""
 
-    f.write("def generate_question_prompt(tech_stack, experience, answer_flag):\n")
-    f.write("    if answer_flag:\n")
-    f.write("        return f'''\n")
-    f.write("Generate **5 technical interview questions** for someone with {experience} years of experience in the following tech stack:\n")
-    f.write("{tech_stack}\n\n")
-    f.write("Generate 7 coding interview questions that assess fundamental and intermediate programming concepts, ensuring each question focuses on practical problem-solving using core data structures and algorithms.\n")
-    f.write("For **each question**, also provide a **detailed, easy-to-understand solution** that helps the user learn.\n\n")
-    f.write("Format:\n")
-    f.write("1. **Question:** ...\n")
-    f.write("   **Answer:** ... (explanation)\n'''\n")
-    f.write("    else:\n")
-    f.write("        return f'''\n")
-    f.write("Generate **5 technical interview questions only** for someone with {experience} years of experience in:\n")
-    f.write("{tech_stack}\n\n")
-    f.write("The questions should assess relevant and challenging concepts for their level.\n")
-    f.write("Respond in a clean numbered list without answers.'''\n")
+def get_info_prompt():
+    return """
+Please fill out the following details to help us customize your interview questions:
+1. Full Name
+2. Email
+3. Phone Number
+4. Years of Experience
+5. Desired Position(s)
+6. Current Location
+7. Your Tech Stack (comma-separated)
+"""
+
+def generate_question_only_prompt(tech_stack, experience):
+    return f"""
+Generate 5 **technical coding interview questions only** (no answers) for someone with {experience} years of experience in the following tech stack:
+
+{tech_stack}
+
+The questions should test coding ability — logic, implementation, algorithms, or systems — using the mentioned technologies.
+
+Respond only in this format:
+1. **Question:** ...
+2. **Question:** ...
+3. **Question:** ...
+4. **Question:** ...
+5. **Question:** ...
+"""
+
+def generate_solution_only_prompt(tech_stack, experience, questions):
+    return f"""
+You are an AI coding interview assistant.
+
+Generate answers to the following 5 coding interview questions for someone with {experience} years of experience in:
+
+Tech Stack: {tech_stack}
+
+Each answer must include:
+- ✅ Complete, executable code in the tech stack mentioned
+- ✅ Brief explanation of what the code does and why
+
+Questions:
+{questions}
+
+Format:
+1. **Answer:**
+```{tech_stack.lower()}
+# your code here
+
+Respond in this format:
+1. **Answer:** ...
+2. **Answer:** ...
+3. **Answer:** ...
+4. **Answer:** ...
+5. **Answer:** ...
+"""
+
+def generate_thinking_prompt(tech_stack, experience):
+    return f"""
+Generate 5 advanced or creative "thinking" (open-ended, discussion) interview questions for someone with {experience} years of experience in {tech_stack}.
+Number and return questions only, without answers.
+"""''')
